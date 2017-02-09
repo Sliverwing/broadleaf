@@ -7,6 +7,12 @@
 
 require('./bootstrap');
 
+import 'element-ui/lib/theme-default/index.css';
+import App from './components/admin/App.vue';
+import ElementUI from 'element-ui';
+
+Vue.use(ElementUI);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -16,5 +22,6 @@ require('./bootstrap');
 Vue.component('example', require('./components/admin/Example.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    render: h => h(App),
 });
