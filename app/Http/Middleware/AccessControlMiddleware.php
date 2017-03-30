@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 class AccessControlMiddleware
 {
@@ -15,6 +17,14 @@ class AccessControlMiddleware
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        $name = Route::currentRouteName();
+        if (Auth::check() && Auth::user()->can($name))
+        {
+            return $next($request);
+        }
+        else
+        {
+            return abort(403);
+        }
     }
 }
