@@ -12,10 +12,14 @@ class DefaultAdminSeeder extends Seeder
      */
     public function run()
     {
-       User::firstOrCreate([
+       $user = User::firstOrCreate([
             'name' => 'Sliverwing',
             'email' => 'admin@sliverwing.me',
-            'password' => bcrypt('000000')
        ]);
+       $user->password = bcrypt('000000');
+       $user->save();
+
+       $adminRole = \App\Role::where('name', 'admin')->firstOrFail();
+       $user->attachRole($adminRole);
     }
 }
