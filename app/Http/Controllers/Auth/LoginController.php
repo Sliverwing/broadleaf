@@ -40,7 +40,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->hasRole('admin'))
+        if ($user->can('admin.login'))
         {
             $this->redirectTo = '/admin';
         }
