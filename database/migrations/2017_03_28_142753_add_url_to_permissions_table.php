@@ -16,6 +16,10 @@ class AddUrlToPermissionsTable extends Migration
         Schema::table('permissions', function (Blueprint $table){
             $table->string('url')->nullable();
             $table->boolean('is_url_enabled')->default(false);
+            $table->integer('parent_id')->unsigned()->nullable();
+
+            $table->foreign('parent_id')->references('id')->on('permissions')
+                ->upUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -29,6 +33,8 @@ class AddUrlToPermissionsTable extends Migration
         Schema::table('permissions', function (Blueprint $table){
             $table->dropColumn('url');
             $table->dropColumn('is_url_enabled');
+            $table->dropForeign('permissions_parent_id_foreign');
+            $table->dropColumn('parent_id');
         });
     }
 }
