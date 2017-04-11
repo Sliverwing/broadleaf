@@ -21,12 +21,18 @@
     <link href="//cdn.bootcss.com/admin-lte/2.3.11/css/AdminLTE.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/admin-lte/2.3.11/css/skins/skin-blue.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-
+    <link href="/css/admin.css" rel="stylesheet">
 </head>
 <body class="skin-blue">
 
     @include('admin.components.header')
     @include('admin.components.aside')
+
+    <div class="content-wrapper">
+        <section class="content">
+            @yield('content')
+        </section>
+    </div>
 
     <!-- Scripts -->
     <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
