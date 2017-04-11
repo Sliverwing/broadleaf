@@ -31,7 +31,6 @@ class DefaultPermissionSeeder extends Seeder
         Permission::firstOrCreate([
             'name' => 'permission.create',
             'display_name' => '新建权限',
-            'parent_id' => $permission_index->id
         ]);
         Permission::firstOrCreate([
             'name' => 'permission.destroy',
