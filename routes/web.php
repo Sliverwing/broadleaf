@@ -20,6 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
-    Route::get('/', 'IndexController@index');
+    Route::get('/', ['uses' => 'IndexController@index', 'as' => 'admin.login']);
     Route::resource('/permission', 'PermissionController');
 });
