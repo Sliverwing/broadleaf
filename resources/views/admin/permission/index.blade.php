@@ -23,8 +23,8 @@
                 @foreach($items as $item)
                     <tr>
                         <th>{{ $item->id }}</th>
+                        <th>{{ $item->slug }}</th>
                         <th>{{ $item->name }}</th>
-                        <th>{{ $item->display_name }}</th>
                         <th>{{ $item->description }}</th>
                         <th>{{ $item->url }}</th>
                         <th>{{ $item->is_url_enabled }}</th>

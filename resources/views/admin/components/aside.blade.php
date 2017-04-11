@@ -7,7 +7,7 @@
             <!-- Optionally, you can add icons to the links -->
             @foreach($permissions as $permission)
                 <li>
-                    <a href="{{ $permission->url }}"><i class="fa fa-link"></i> {{ $permission->display_name }}</a>
+                    <a href="{{ $permission->url }}"><i class="fa fa-link"></i> {{ $permission->name }}</a>
                 </li>
             @endforeach
         </ul>
