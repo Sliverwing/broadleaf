@@ -167,8 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        Laratrust\LaratrustServiceProvider::class,
-
+        Ultraware\Roles\RolesServiceProvider::class,
         /*
          * Application Service Providers...
          */
