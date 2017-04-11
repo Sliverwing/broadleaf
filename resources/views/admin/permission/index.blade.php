@@ -29,7 +29,7 @@
                         <th>{{ $item->url }}</th>
                         <th>{{ $item->is_url_enabled }}</th>
                         <th>{{ $item->updated_at }}</th>
-                        <th><a href="/admin/permission/{{ $item->id }}/edit" class="btn btn-default @permission('permission.edit') disabled @endpermission">编辑</a></th>
+                        <th> @permission('permission.edit') <a href="/admin/permission/{{ $item->id }}/edit" class="btn btn-default">编辑</a>@endpermission</th>
                     </tr>
                 @endforeach
             </tbody>

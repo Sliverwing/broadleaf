@@ -18,6 +18,7 @@ class AccessControlMiddleware
     public function handle($request, Closure $next)
     {
         $name = Route::currentRouteName();
+        dd($name, Auth::user()->can($name));
         if (Auth::check() && Auth::user()->can($name))
         {
             return $next($request);
