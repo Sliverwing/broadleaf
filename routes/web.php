@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('/', 'Admin\IndexController@index');
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+    Route::get('/', 'IndexController@index');
+    Route::resource('/permission', 'PermissionController');
 });
