@@ -22,6 +22,6 @@ class DefaultAdminSeeder extends Seeder
             ]);
         }
         $adminRole = \App\Models\Role::where('name', 'admin')->firstOrFail();
-        $user->syncRoles([$adminRole -> id]);
+        $user->attachRole($adminRole);
     }
 }

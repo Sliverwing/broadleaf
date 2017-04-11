@@ -18,6 +18,9 @@ class CreatePermissionsTable extends Migration
             $table->string('slug')->unique();
             $table->string('description')->nullable();
             $table->string('model')->nullable();
+            $table->boolean('is_url_enabled')->default(false);
+            $table->string('url')->nullable();
+            $table->integer('order')->default(10);
             $table->timestamps();
         });
     }

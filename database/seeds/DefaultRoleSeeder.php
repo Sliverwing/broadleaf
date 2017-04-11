@@ -13,9 +13,10 @@ class DefaultRoleSeeder extends Seeder
     public function run()
     {
         LaratrustRole::firstOrCreate([
-            'name' => 'admin',
-            'display_name' => 'Admin',
-            'description' => 'Admin Role'
+            'slug' => 'admin',
+            'name' => 'Admin',
+            'description' => 'Admin Role',
+            'level' => 9
         ]);
     }
 }
