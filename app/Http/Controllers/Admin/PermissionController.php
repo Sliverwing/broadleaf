@@ -36,7 +36,9 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->parseData($request);
+        Permission::create($data);
+        return redirect('/admin/permission')->with('status', 'success')->with('title', '已保存');
     }
 
     /**
@@ -72,14 +74,7 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $item = Permission::findOrFail($id);
-        $this->doValidate($request, $id);
-        $data = $request->all();
-        if ($request->input('is_url_enabled') == 'on')
-        {
-            $data['is_url_enabled'] = true;
-        } else {
-            $data['is_url_enabled'] = false;
-        }
+        $data = $this->parseData($request, $id);
         $item->update($data);
         return back()->with('status', 'success')->with('title', '更新成功');
     }
@@ -101,5 +96,18 @@ class PermissionController extends Controller
             'name' => 'required',
             'slug' => 'required|unique:permissions,slug,' . $id
         ]);
+    }
+
+    private function parseData(Request $request, $id = null)
+    {
+        $this->doValidate($request, $id);
+        $data = $request->all();
+        if ($request->input('is_url_enabled') == 'on')
+        {
+            $data['is_url_enabled'] = true;
+        } else {
+            $data['is_url_enabled'] = false;
+        }
+        return $data;
     }
 }
