@@ -71,7 +71,17 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = Permission::findOrFail($id);
+        $this->doValidate($request, $id);
+        $data = $request->all();
+        if ($request->input('is_url_enabled') == 'on')
+        {
+            $data['is_url_enabled'] = true;
+        } else {
+            $data['is_url_enabled'] = false;
+        }
+        $item->update($data);
+        return back()->with('status', 'success')->with('title', '更新成功');
     }
 
     /**
@@ -83,5 +93,13 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function doValidate(Request $request, $id = null)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'slug' => 'required|unique:permissions,slug,' . $id
+        ]);
     }
 }
