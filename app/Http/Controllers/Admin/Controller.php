@@ -12,6 +12,11 @@ class Controller extends BaseController
         $this->middleware('acl');
     }
 
+    public function store(Request $request)
+    {
+        return back()->with('status', 'success')->with('title', '已保存');
+    }
+
     public function update(Request $request, $id)
     {
         return back()->with('status', 'success')->with('title', '更新成功');
