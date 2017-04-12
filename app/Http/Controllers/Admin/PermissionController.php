@@ -25,7 +25,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.permission.form');
     }
 
     /**
@@ -58,7 +58,8 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Permission::findOrFail($id);
+        return view('admin.permission.form', compact('item'));
     }
 
     /**
