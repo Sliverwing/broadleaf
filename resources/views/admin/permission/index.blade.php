@@ -1,6 +1,7 @@
 @extends('admin.index')
 
 @section('content')
+    @include('components.message')
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">权限表</h3>
