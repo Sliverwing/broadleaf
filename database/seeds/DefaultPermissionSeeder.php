@@ -48,7 +48,40 @@ class DefaultPermissionSeeder extends Seeder
             'slug' => 'permission.edit',
             'name' => '编辑权限',
         ]);
+        $this->parseBasicPermissionTable('role', '角色');
+    }
 
-
+    public function parseBasicPermissionTable($slug , $name)
+    {
+        Permission::firstOrCreate([
+            'slug' => $slug. '.index',
+            'name' => $name . '管理',
+            'is_url_enabled' => true,
+            'url' => '/admin/' . $slug,
+        ]);
+        Permission::firstOrCreate([
+            'slug' => $slug. '.store',
+            'name' => '保存' . $name,
+        ]);
+        Permission::firstOrCreate([
+            'slug' => $slug. '.create',
+            'name' => '新建' . $name,
+        ]);
+        Permission::firstOrCreate([
+            'slug' => $slug. '.destroy',
+            'name' => '删除'. $name,
+        ]);
+        Permission::firstOrCreate([
+            'slug' => $slug. '.update',
+            'name' => '更新'. $name,
+        ]);
+        Permission::firstOrCreate([
+            'slug' => $slug. '.show',
+            'name' => '显示'. $name. '详情',
+        ]);
+        Permission::firstOrCreate([
+            'slug' => $slug. '.edit',
+            'name' => '编辑' . $name,
+        ]);
     }
 }
