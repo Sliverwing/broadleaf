@@ -87,7 +87,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Permission::destroy($id);
+        return back()->with('status', 'success')->with('title', '删除成功');
     }
 
     private function doValidate(Request $request, $id = null)
