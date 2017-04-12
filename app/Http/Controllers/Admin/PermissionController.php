@@ -76,7 +76,7 @@ class PermissionController extends Controller
         $item = Permission::findOrFail($id);
         $data = $this->parseData($request, $id);
         $item->update($data);
-        return back()->with('status', 'success')->with('title', '更新成功');
+        return parent::update($request, $id);
     }
 
     /**
@@ -88,7 +88,7 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         Permission::destroy($id);
-        return back()->with('status', 'success')->with('title', '删除成功');
+        return parent::destroy($id);
     }
 
     private function doValidate(Request $request, $id = null)
