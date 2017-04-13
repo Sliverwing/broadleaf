@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 
 class UserController extends Controller
@@ -25,7 +27,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.form');
+        $roles = Role::all();
+        return view('admin.user.form', compact('roles'));
     }
 
     /**
@@ -61,7 +64,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $item = User::findOrFail($id);
-        return view('admin.user.form', compact('item'));
+        $roles = Role::all();
+        return view('admin.user.form', compact('item','roles'));
     }
 
     /**
@@ -83,6 +87,10 @@ class UserController extends Controller
         else
         {
             $data['password'] = bcrypt($request->input('password'));
+        }
+        if (Auth::user()->hasPermission('user.role.edit'))
+        {
+            $item->syncRoles($data['role']);
         }
         $item->update($data);
         return parent::update($request, $id);

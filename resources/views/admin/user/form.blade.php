@@ -49,6 +49,21 @@
                     <label for="level">确认密码</label>
                     <input type="text" name="password_confirmation" class="form-control" id="password_confirmation">
                 </div>
+                @permission('user.role.edit')
+                <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+                    <label for="role">用户组</label>
+                    <select name="role[]" id="role" class="form-control">
+                        @foreach($roles as $role)
+                            <option class="form-control" value="{{ $role->id }}" @if ($item->hasRole($role->id)) selected @endif> {{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('role'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('role') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                @endpermission
             </div>
             <!-- /.box-body -->
 
