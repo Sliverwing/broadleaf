@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -25,7 +27,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.role.form');
+        $allPermissions = Permission::all();
+        return view('admin.role.form', compact('allPermissions'));
     }
 
     /**
@@ -37,7 +40,11 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->doValidate($request);
-        Role::create($request->all());
+        $role = Role::create($request->except('permission'));
+        if (Auth::user()->hasPermission('role.permission.edit'))
+        {
+            $role->syncPermissions($request->input('permission'));
+        }
         return redirect('/admin/role')->with('status', 'success')->with('title', '已保存');
     }
 
@@ -61,7 +68,14 @@ class RoleController extends Controller
     public function edit($id)
     {
         $item = Role::findOrFail($id);
-        return view('admin.role.form', compact('item'));
+        $allPermissions = Permission::all();
+        $rolePermissions = $item->permissions;
+        $rolePermissionsId = [];
+        foreach ($rolePermissions as $rolePermission)
+        {
+            array_push($rolePermissionsId, $rolePermission->id);
+        }
+        return view('admin.role.form', compact('item', 'allPermissions', 'rolePermissionsId'));
     }
 
     /**
@@ -75,7 +89,11 @@ class RoleController extends Controller
     {
         $item = Role::findOrFail($id);
         $this->doValidate($request, $id);
-        $item->update($request->all());
+        $item->update($request->except('permission'));
+        if (Auth::user()->hasPermission('role.permission.edit'))
+        {
+            $item->syncPermissions($request->input('permission'));
+        }
         return parent::update($request, $id);
     }
 

@@ -55,6 +55,18 @@
                         </span>
                     @endif
                 </div>
+                @permission('role.permission.edit')
+                <div class="form-group{{ $errors->has('permission') ? ' has-error' : '' }}">
+                    <label for="permission">权限</label>
+                    <div>
+                    @foreach($allPermissions as $permission)
+                        <label>
+                            <input type="checkbox" name="permission[]" @if(isset($rolePermissionsId) && in_array($permission->id, $rolePermissionsId)) checked @endif value="{{ $permission->id }}"> {{ $permission->name }}
+                        </label>
+                    @endforeach
+                    </div>
+                </div>
+                @endpermission
             </div>
             <!-- /.box-body -->
 
