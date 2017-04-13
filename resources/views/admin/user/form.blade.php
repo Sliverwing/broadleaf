@@ -54,7 +54,7 @@
                     <label for="role">用户组</label>
                     <select name="role[]" id="role" class="form-control">
                         @foreach($roles as $role)
-                            <option class="form-control" value="{{ $role->id }}" @if ($item->hasRole($role->id)) selected @endif> {{ $role->name }}</option>
+                            <option class="form-control" value="{{ $role->id }}" @if (isset($item) && $item->hasRole($role->id)) selected @endif> {{ $role->name }}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('role'))
