@@ -50,6 +50,10 @@ class DefaultPermissionSeeder extends Seeder
         ]);
         $this->parseBasicPermissionTable('role', '角色');
         $this->parseBasicPermissionTable('user', '用户');
+        Permission::firstOrCreate([
+            'slug' => 'user.role.edit',
+            'name' => '用户组修改',
+        ]);
     }
 
     public function parseBasicPermissionTable($slug , $name)
