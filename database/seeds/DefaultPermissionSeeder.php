@@ -58,6 +58,8 @@ class DefaultPermissionSeeder extends Seeder
             'slug' => 'role.permission.edit',
             'name' => '用户组权限修改',
         ]);
+        $this->parseBasicPermissionTable('article', '文章');
+
     }
 
     public function parseBasicPermissionTable($slug , $name)
