@@ -59,6 +59,7 @@ class DefaultPermissionSeeder extends Seeder
             'name' => '用户组权限修改',
         ]);
         $this->parseBasicPermissionTable('article', '文章');
+        $this->parseBasicPermissionTable('category', '类别');
 
     }
 
