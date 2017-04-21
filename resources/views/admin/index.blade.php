@@ -39,5 +39,7 @@
     <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//cdn.bootcss.com/admin-lte/2.3.11/js/app.min.js"></script>
 
+    @stack('scripts')
+
 </body>
 </html>
