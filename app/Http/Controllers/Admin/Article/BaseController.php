@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Article;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Controller as AdminBaseController;
 
@@ -15,7 +16,8 @@ class BaseController extends AdminBaseController
      */
     public function index()
     {
-        //
+        $items = Article::paginate(20);
+        return view('admin.article.index', compact('items'));
     }
 
     /**
