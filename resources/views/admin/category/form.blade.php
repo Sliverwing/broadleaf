@@ -9,16 +9,16 @@
         <!-- /.box-header -->
         <!-- form start -->
         @php
-        $base = '/admin/user/';
+        $base = '/admin/category/';
         $actionUrl = isset($item) ? $base . $item->id : $base;
         $method = isset($item) ? 'PUT' : 'POST';
         @endphp
-        <form action="{{ $actionUrl }}" method="POST">
+        <form action="{{ $actionUrl }}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="{{ $method }}">
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    <label for="name">用户名</label>
+                    <label for="name">栏目名</label>
                     <input type="text" name="name" value="{{ (old('name') != null ? old('name') : (isset($item) ? $item->name : '')) }}" class="form-control" id="name">
                     @if ($errors->has('name'))
                         <span class="help-block">
@@ -26,44 +26,29 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="slug">Email</label>
-                    <input type="text" name="email" value="{{ (old('email') != null ? old('email') : (isset($item) ? $item->email : '')) }}" class="form-control" id="email">
-                    @if ($errors->has('email'))
+                <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+                    <label for="slug">唯一标识</label>
+                    <input type="text" name="slug" value="{{ (old('slug') != null ? old('slug') : (isset($item) ? $item->slug : '')) }}" class="form-control" id="slug">
+                    <p class="help-block">如不需要，请留空。</p>
+                    @if ($errors->has('slug'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('slug') }}</strong>
                         </span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="description">密码</label>
-                    <input type="text" name="password" class="form-control" id="password">
+                <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                    <label for="image">栏目图片</label>
+                    @if(isset($item))
+                        <a href="{{ $item->image }}">预览</a>
+                    @endif
+                    <input type="file" name="image" id="image">
                     <p class="help-block">如需修改用户密码，请填写此项，原密码不显示。</p>
-                    @if ($errors->has('password'))
+                    @if ($errors->has('image'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('password') }}</strong>
+                            <strong>{{ $errors->first('image') }}</strong>
                         </span>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="level">确认密码</label>
-                    <input type="text" name="password_confirmation" class="form-control" id="password_confirmation">
-                </div>
-                @permission('user.role.edit')
-                <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-                    <label for="role">用户组</label>
-                    <select name="role[]" id="role" class="form-control">
-                        @foreach($roles as $role)
-                            <option class="form-control" value="{{ $role->id }}" @if (isset($item) && $item->hasRole($role->id)) selected @endif> {{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('role'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('role') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                @endpermission
             </div>
             <!-- /.box-body -->
 
