@@ -26,4 +26,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
     Route::resource('/user', 'UserController');
     Route::resource('/article', 'Article\BaseController');
     Route::resource('/category', 'Article\CategoryController');
+//    File Uploader
+    Route::post('/upload/image', 'UploadController@image');
 });
