@@ -42,7 +42,7 @@
                         <a href="{{ $item->image }}">预览</a>
                     @endif
                     <input type="file" name="image" id="image">
-                    <p class="help-block">如需修改用户密码，请填写此项，原密码不显示。</p>
+                    <p class="help-block">如需设置栏目图片，请填写此项。</p>
                     @if ($errors->has('image'))
                         <span class="help-block">
                             <strong>{{ $errors->first('image') }}</strong>
