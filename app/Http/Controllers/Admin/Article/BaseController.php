@@ -27,7 +27,7 @@ class BaseController extends AdminBaseController
      */
     public function create()
     {
-        //
+        return view('admin.article.form');
     }
 
     /**
