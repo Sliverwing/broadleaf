@@ -97,11 +97,10 @@
                 </div>
                 <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
                     <label for="category_id">分类</label>
-                        {{ (old('category_id') != null ? old('category_id') : (isset($item) ? $item->category_id : '')) }}
                     <select name="category_id" id="category_id" class="form-control">
                         <option value="">尚未分类</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @if(isset($item) && $item->category_id == $category->id ) selected @endif>{{ $category->name }}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('category_id'))
