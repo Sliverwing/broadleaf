@@ -18,7 +18,7 @@ class BaseController extends AdminBaseController
      */
     public function index()
     {
-        $items = Article::paginate(20);
+        $items = Article::with('user')->with('category')->paginate(20);
         return view('admin.article.index', compact('items'));
     }
 

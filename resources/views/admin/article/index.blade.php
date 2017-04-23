@@ -12,6 +12,7 @@
                 <tr>
                     <th>id</th>
                     <th>标题</th>
+                    <th>分类</th>
                     <th>操作者</th>
                     <th>查看次数</th>
                     <th>更新于</th>
@@ -23,7 +24,9 @@
                     <tr>
                         <th>{{ $item->id }}</th>
                         <th>{{ $item->title }}</th>
+                        <th>@if ($item->category !== null) {{ $item->category->name }} @else 尚未分类 @endif</th>
                         <th>@if ($item->user !== null) {{ $item->user->name }} @endif</th>
+                        <th>{{ $item->views_count }}</th>
                         <th>{{ $item->updated_at }}</th>
                         <th> @permission('article.edit') <a href="/admin/article/{{ $item->id }}/edit" class="btn btn-default">编辑</a>@endpermission
                         @permission('article.destroy') <a href="#" onclick="handleDeleteBtn('/admin/article/{{ $item->id }}')" id="delete-btn" class="btn btn-danger">删除</a>@endpermission</th>
