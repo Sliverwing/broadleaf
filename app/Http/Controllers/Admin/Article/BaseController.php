@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Article;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Controller as AdminBaseController;
 
@@ -27,7 +28,8 @@ class BaseController extends AdminBaseController
      */
     public function create()
     {
-        return view('admin.article.form');
+        $categories = Category::all();
+        return view('admin.article.form', compact('categories'));
     }
 
     /**

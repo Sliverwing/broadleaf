@@ -17,53 +17,102 @@
             <input type="hidden" name="_method" value="{{ $method }}">
             {{ csrf_field() }}
             <div class="box-body">
-                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    <label for="name">用户名</label>
-                    <input type="text" name="name" value="{{ (old('name') != null ? old('name') : (isset($item) ? $item->name : '')) }}" class="form-control" id="name">
-                    @if ($errors->has('name'))
+                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                    <label for="title">文章标题</label>
+                    <input type="text" name="title" value="{{ (old('title') != null ? old('title') : (isset($item) ? $item->title : '')) }}" class="form-control" id="title">
+                    @if ($errors->has('title'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('name') }}</strong>
+                            <strong>{{ $errors->first('title') }}</strong>
                         </span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="slug">Email</label>
-                    <input type="text" name="email" value="{{ (old('email') != null ? old('email') : (isset($item) ? $item->email : '')) }}" class="form-control" id="email">
-                    @if ($errors->has('email'))
+                <div class="form-group{{ $errors->has('is_direct_link') ? ' has-error' : '' }}">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="is_direct_link" <?php echo ( old('is_direct_link') != null ? ( old('is_direct_link') == 1 ? "selected" : "" ) : ( isset($item) ? ( $item->gender == 1 ? "selected" : "") : "" )
+                            )?> > 是否为直接链接
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group{{ $errors->has('is_top') ? ' has-error' : '' }}">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="is_top" <?php echo ( old('is_top') != null ? ( old('is_top') == 1 ? "selected" : "" ) : ( isset($item) ? ( $item->is_top == 1 ? "selected" : "") : "" )
+                            )?> > 是否为置顶文章
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group{{ $errors->has('intro') ? ' has-error' : '' }}">
+                    <label for="slug">简介</label>
+                    <input type="text" name="intro" value="{{ (old('intro') != null ? old('intro') : (isset($item) ? $item->intro : '')) }}" class="form-control" id="intro">
+                    @if ($errors->has('intro'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('intro') }}</strong>
                         </span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="description">密码</label>
-                    <input type="text" name="password" class="form-control" id="password">
-                    <p class="help-block">如需修改用户密码，请填写此项，原密码不显示。</p>
-                    @if ($errors->has('password'))
+                <div class="form-group{{ $errors->has('reference_link') ? ' has-error' : '' }}">
+                    <label for="slug">文章来源</label>
+                    <input type="text" name="reference_link" value="{{ (old('reference_link') != null ? old('reference_link') : (isset($item) ? $item->reference_link : '')) }}" class="form-control" id="reference_link">
+                    <p class="help-block">请填写 URL 。</p>
+                @if ($errors->has('reference_link'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('password') }}</strong>
+                            <strong>{{ $errors->first('reference_link') }}</strong>
                         </span>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="level">确认密码</label>
-                    <input type="text" name="password_confirmation" class="form-control" id="password_confirmation">
+                <div class="form-group{{ $errors->has('views_count') ? ' has-error' : '' }}">
+                    <label for="slug">点击量</label>
+                    <input type="text" name="views_count" value="{{ (old('views_count') != null ? old('views_count') : (isset($item) ? $item->views_count : '')) }}" class="form-control" id="views_count">
+                    <p class="help-block">请填写数字。</p>
+                    @if ($errors->has('views_count'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('views_count') }}</strong>
+                        </span>
+                    @endif
                 </div>
-                @permission('user.role.edit')
-                <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-                    <label for="role">用户组</label>
-                    <select name="role[]" id="role" class="form-control">
-                        @foreach($roles as $role)
-                            <option class="form-control" value="{{ $role->id }}" @if (isset($item) && $item->hasRole($role->id)) selected @endif> {{ $role->name }}</option>
+                <div class="form-group{{ $errors->has('banner') ? ' has-error' : '' }}">
+                    <label for="banner">文章标题图</label>
+                    @if(isset($item))
+                        <a href="{{ $item->banner }}">预览</a>
+                    @endif
+                    <input type="file" name="banner" id="banner">
+                    @if ($errors->has('banner'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('banner') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
+                    <label for="content">内容</label>
+                    <textarea id="content" class="form-control" name="content">
+                        {{ (old('content') != null ? old('content') : (isset($item) ? $item->content : '')) }}
+                    </textarea>
+
+                    @if ($errors->has('content'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('content') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
+                    <label for="category_id">分类</label>
+                        {{ (old('category_id') != null ? old('category_id') : (isset($item) ? $item->category_id : '')) }}
+                    <select name="category_id" id="category_id">
+                        <option>尚未分类</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('role'))
+                    @if ($errors->has('category_id'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('role') }}</strong>
+                            <strong>{{ $errors->first('category_id') }}</strong>
                         </span>
                     @endif
                 </div>
-                @endpermission
+
+
+
             </div>
             <!-- /.box-body -->
 
@@ -73,3 +122,23 @@
         </form>
     </div>
 @endsection
+@push('scripts')
+<script>
+    $(function() {
+        $('textarea#content').froalaEditor({
+            language: 'zh_cn',
+            heightMin: 200,
+            toolbarButtons: ['bold', 'italic', 'underline', 'align', 'formatOL', 'formatUL',
+                'color', 'fontFamily', 'fontSize', 'quote', 'insertImage', 'insertLink', 'insertTable', 'undo', 'redo', 'fullscreen'],
+            pluginsEnabled: ['align', 'image', 'link', 'draggable', 'fontFamily', 'fontSize', 'table', 'fullscreen', 'lists'],
+            imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+            imageEditButtons: ['imageReplace', 'imageAlign', 'imageRemove'],
+            imageUploadParam: 'image',
+            imageUploadParams: {
+                _token: window.Laravel.csrfToken
+            },
+            imageUploadURL: '/admin/upload/image?from=article_editor'
+        })
+    });
+</script>
+@endpush
