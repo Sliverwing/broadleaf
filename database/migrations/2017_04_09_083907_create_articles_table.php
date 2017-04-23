@@ -24,6 +24,7 @@ class CreateArticlesTable extends Migration
             $table->string('reference_link')->nullable();
             $table->text('content')->nullable();
             $table->integer('user_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable()->index();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
