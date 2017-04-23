@@ -9,7 +9,7 @@
         <!-- /.box-header -->
         <!-- form start -->
         @php
-        $base = '/admin/user/';
+        $base = '/admin/article/';
         $actionUrl = isset($item) ? $base . $item->id : $base;
         $method = isset($item) ? 'PUT' : 'POST';
         @endphp
@@ -29,7 +29,7 @@
                 <div class="form-group{{ $errors->has('is_direct_link') ? ' has-error' : '' }}">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="is_direct_link" <?php echo ( old('is_direct_link') != null ? ( old('is_direct_link') == 1 ? "selected" : "" ) : ( isset($item) ? ( $item->gender == 1 ? "selected" : "") : "" )
+                            <input type="checkbox" name="is_direct_link" <?php echo ( old('is_direct_link') != null ?  "checked" :  ( isset($item) ? ( $item->is_direct_link == 1 ? "checked" : "") : "" )
                             )?> > 是否为直接链接
                         </label>
                     </div>
@@ -37,7 +37,7 @@
                 <div class="form-group{{ $errors->has('is_top') ? ' has-error' : '' }}">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="is_top" <?php echo ( old('is_top') != null ? ( old('is_top') == 1 ? "selected" : "" ) : ( isset($item) ? ( $item->is_top == 1 ? "selected" : "") : "" )
+                            <input type="checkbox" name="is_top" <?php echo ( old('is_top') != null ? "checked" : ( isset($item) ? ( $item->is_top == 1 ? "checked" : "") : "" )
                             )?> > 是否为置顶文章
                         </label>
                     </div>
@@ -98,8 +98,8 @@
                 <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
                     <label for="category_id">分类</label>
                         {{ (old('category_id') != null ? old('category_id') : (isset($item) ? $item->category_id : '')) }}
-                    <select name="category_id" id="category_id">
-                        <option>尚未分类</option>
+                    <select name="category_id" id="category_id" class="form-control">
+                        <option value="">尚未分类</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
@@ -110,8 +110,6 @@
                         </span>
                     @endif
                 </div>
-
-
 
             </div>
             <!-- /.box-body -->
