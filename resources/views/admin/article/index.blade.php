@@ -13,6 +13,7 @@
                     <th>id</th>
                     <th>标题</th>
                     <th>分类</th>
+                    <th>置顶</th>
                     <th>操作者</th>
                     <th>查看次数</th>
                     <th>更新于</th>
@@ -25,6 +26,7 @@
                         <th>{{ $item->id }}</th>
                         <th>{{ $item->title }}</th>
                         <th>@if ($item->category !== null) {{ $item->category->name }} @else 尚未分类 @endif</th>
+                        <th>@if($item->is_top) <i class="fa fa-fw fa-check green"></i> @else <i class="fa fa-fw fa-remove red"></i> @endif</th>
                         <th>@if ($item->user !== null) {{ $item->user->name }} @endif</th>
                         <th>{{ $item->views_count }}</th>
                         <th>{{ $item->updated_at }}</th>

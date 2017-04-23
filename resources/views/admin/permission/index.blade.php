@@ -28,7 +28,7 @@
                         <th>{{ $item->name }}</th>
                         <th>{{ $item->description }}</th>
                         <th>{{ $item->url }}</th>
-                        <th>{{ $item->is_url_enabled }}</th>
+                        <th>@if($item->is_url_enabled) <i class="fa fa-fw fa-check green"></i> @else <i class="fa fa-fw fa-remove red"></i> @endif</th>
                         <th>{{ $item->updated_at }}</th>
                         <th> @permission('permission.edit') <a href="/admin/permission/{{ $item->id }}/edit" class="btn btn-default">编辑</a>@endpermission
                         @permission('permission.destroy') <a href="#" onclick="handleDeleteBtn('/admin/permission/{{ $item->id }}')" id="delete-btn" class="btn btn-danger">删除</a>@endpermission</th>
