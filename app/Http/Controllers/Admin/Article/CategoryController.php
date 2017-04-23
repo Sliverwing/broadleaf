@@ -106,10 +106,14 @@ class CategoryController extends AdminBaseController
 
     public function doValidate(Request $request, $id=null)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required',
-            'slug' => 'unique:categories,slug,' . $id,
             'image' => 'image'
-        ]);
+        ];
+        if (!is_null($id))
+        {
+            $rules['slug'] = 'unique:categories,slug,' . $id;
+        }
+        $this->validate($request, $rules);
     }
 }
