@@ -21,7 +21,7 @@ class DefaultAdminSeeder extends Seeder
                 'password' =>  bcrypt('000000'),
             ]);
         }
-        $adminRole = \App\Models\Role::where('name', 'admin')->firstOrFail();
+        $adminRole = \App\Models\Role::where('slug', 'admin')->firstOrFail();
         $user->attachRole($adminRole);
     }
 }
