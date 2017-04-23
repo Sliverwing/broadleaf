@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Laratrust\LaratrustRole;
+use Laratrust\LaratrustPermission;
 
 class DefaultRoleSeeder extends Seeder
 {
@@ -12,11 +13,13 @@ class DefaultRoleSeeder extends Seeder
      */
     public function run()
     {
-        LaratrustRole::firstOrCreate([
+        $admin = LaratrustRole::firstOrCreate([
             'slug' => 'admin',
             'name' => 'Admin',
             'description' => 'Admin Role',
             'level' => 9
         ]);
+        $permissions = LaratrustPermission::all();
+        $admin->syncPermissions($permissions);
     }
 }
