@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Controller as AdminBaseController;
+use Illuminate\Support\Facades\Auth;
 
 
 class BaseController extends AdminBaseController
@@ -40,7 +41,9 @@ class BaseController extends AdminBaseController
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->parseData($request);
+        Article::create(array_merge($data, [ 'user_id' => Auth::id()]));
+        return parent::store($request);
     }
 
     /**
@@ -62,7 +65,9 @@ class BaseController extends AdminBaseController
      */
     public function edit($id)
     {
-        //
+        $item = Article::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.article.form', compact('item', 'categories'));
     }
 
     /**
@@ -74,7 +79,9 @@ class BaseController extends AdminBaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->parseData($request);
+        Article::findOrFail($id)->update($data);
+        return parent::update($request, $id);
     }
 
     /**
@@ -86,5 +93,18 @@ class BaseController extends AdminBaseController
     public function destroy($id)
     {
         //
+    }
+
+    protected function parseData(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+            'views_count' => 'nullable|integer',
+            'reference_link' => 'nullable|url'
+        ]);
+        $data = $request->all();
+        $data['is_direct_link'] = array_has($data, 'is_direct_link');
+        $data['is_top'] = array_has($data, 'is_top');
+        return $data;
     }
 }
