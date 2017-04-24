@@ -138,6 +138,22 @@
                         </span>
                             @endif
                         </div>
+                        <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+                            <label for="status">文章状态</label>
+                            <select name="status" id="status" class="form-control">
+                                    <option value="published"
+                                            @if(isset($item) && $item->status == 'published' ) selected @endif>已发布</option>
+                                    <option value="draft"
+                                            @if(isset($item) && $item->status == 'draft' ) selected @endif>草稿</option>
+                                    <option value="hidden"
+                                            @if(isset($item) && $item->status == 'hidden' ) selected @endif>隐藏</option>
+                            </select>
+                            @if ($errors->has('status'))
+                                <span class="help-block">
+                            <strong>{{ $errors->first('status') }}</strong>
+                        </span>
+                            @endif
+                        </div>
 
                     </div>
                 </div>
