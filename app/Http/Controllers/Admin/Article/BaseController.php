@@ -100,11 +100,13 @@ class BaseController extends AdminBaseController
         $this->validate($request, [
             'title' => 'required',
             'views_count' => 'nullable|integer',
-            'reference_link' => 'nullable|url'
+            'reference_link' => 'nullable|url',
+            'status' => 'in:published,draft,hidden',
         ]);
         $data = $request->all();
         $data['is_direct_link'] = array_has($data, 'is_direct_link');
         $data['is_top'] = array_has($data, 'is_top');
+        $data['views_count'] = is_null($data['views_count']) ? 0 : $data['views_count'];
         return $data;
     }
 }
