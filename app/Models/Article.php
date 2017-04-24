@@ -16,7 +16,8 @@ class Article extends Model
         'reference_link',
         'content',
         'user_id',
-        'category_id'
+        'category_id',
+        'status'
     ];
 
     public function user()
