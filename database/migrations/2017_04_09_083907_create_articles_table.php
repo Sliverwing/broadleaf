@@ -25,6 +25,7 @@ class CreateArticlesTable extends Migration
             $table->text('content')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned()->nullable()->index();
+            $table->enum('status', ['published', 'draft', 'hidden'])->default('published');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
