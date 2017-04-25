@@ -62,7 +62,11 @@
                             <div class="col-xs-5">
                                 <select multiple="multiple" name="from[]" class="form-control" id="multiselect" size="8">
                                     @foreach($allPermissions as $permission)
-                                        @if(!in_array($permission->id, $rolePermissionsId))
+                                        @if (isset($rolePermissionsId))
+                                            @if(!in_array($permission->id, $rolePermissionsId))
+                                                <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                            @endif
+                                        @else
                                             <option value="{{ $permission->id }}">{{ $permission->name }}</option>
                                         @endif
                                     @endforeach
@@ -76,11 +80,13 @@
                             </div>
                             <div class="col-xs-5">
                                 <select multiple="multiple" class="form-control" id="multiselect_to" name="permission[]" size="8">
-                                    @foreach($allPermissions as $permission)
-                                        @if(in_array($permission->id, $rolePermissionsId))
-                                            <option value="{{ $permission->id }}">{{ $permission->name }}</option>
-                                        @endif
-                                    @endforeach
+                                    @if(isset($rolePermissionsId))
+                                        @foreach($allPermissions as $permission)
+                                            @if(in_array($permission->id, $rolePermissionsId))
+                                                <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
