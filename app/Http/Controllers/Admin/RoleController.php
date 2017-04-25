@@ -111,10 +111,14 @@ class RoleController extends Controller
 
     protected function doValidate(Request $request, $id = null)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required',
-            'slug' => 'required|unique:roles,slug,' . $id,
             'level' => 'required',
-        ]);
+        ];
+        if (!is_null($id))
+        {
+            $rules['slug'] = 'required|unique:roles,slug,' . $id;
+        }
+        $this->validate($request, $rules);
     }
 }
