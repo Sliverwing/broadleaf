@@ -41,6 +41,7 @@
     <script src="//cdn.bootcss.com/admin-lte/2.3.11/js/app.min.js"></script>
     <script src="https://cdn.bootcss.com/froala-editor/2.5.1/js/froala_editor.pkgd.min.js"></script>
     <script src="https://cdn.bootcss.com/froala-editor/2.5.1/js/languages/zh_cn.js"></script>
+    <script src="https://cdn.bootcss.com/multiselect/2.2.9/js/multiselect.min.js"></script>
 
     @stack('scripts')
 
