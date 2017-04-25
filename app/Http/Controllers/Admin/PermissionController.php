@@ -93,10 +93,14 @@ class PermissionController extends Controller
 
     private function doValidate(Request $request, $id = null)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required',
-            'slug' => 'required|unique:permissions,slug,' . $id
-        ]);
+        ];
+        if (!is_null($id))
+        {
+            $rules['slug'] = 'required|unique:permissions,slug,' . $id;
+        }
+        $this->validate($request, $rules);
     }
 
     private function parseData(Request $request, $id = null)
