@@ -58,13 +58,32 @@
                 @permission('role.permission.edit')
                 <div class="form-group{{ $errors->has('permission') ? ' has-error' : '' }}">
                     <label for="permission">权限</label>
-                    <div>
-                    @foreach($allPermissions as $permission)
-                        <label>
-                            <input type="checkbox" name="permission[]" @if(isset($rolePermissionsId) && in_array($permission->id, $rolePermissionsId)) checked @endif value="{{ $permission->id }}"> {{ $permission->name }}
-                        </label>
-                    @endforeach
-                    </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <select multiple="multiple" name="from[]" class="form-control" id="multiselect" size="8">
+                                    @foreach($allPermissions as $permission)
+                                        @if(!in_array($permission->id, $rolePermissionsId))
+                                            <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" id="multiselect_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+                                <button type="button" id="multiselect_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                                <button type="button" id="multiselect_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                                <button type="button" id="multiselect_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+                            </div>
+                            <div class="col-xs-5">
+                                <select multiple="multiple" class="form-control" id="multiselect_to" name="permission[]" size="8">
+                                    @foreach($allPermissions as $permission)
+                                        @if(in_array($permission->id, $rolePermissionsId))
+                                            <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                 </div>
                 @endpermission
             </div>
@@ -76,3 +95,8 @@
         </form>
     </div>
 @endsection
+@push('scripts')
+<script>
+    $('#multiselect').multiselect();
+</script>
+@endpush
