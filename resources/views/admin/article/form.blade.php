@@ -114,9 +114,12 @@
                         <div class="form-group{{ $errors->has('banner') ? ' has-error' : '' }}">
                             <label for="banner">文章标题图</label>
                             @if(isset($item))
-                                <a href="{{ $item->banner }}">预览</a>
+                                <img src="{{ $item->banner }}" class="img-responsive" id="banner_img" alt="预览图">
+                            @else
+                                <img src="" class="img-responsive" id="banner_img" alt="预览图" style="display: none;">
                             @endif
-                            <input type="file" name="banner" id="banner">
+                            <input type="hidden" name="banner" id="banner_path">
+                            <input type="file" id="banner">
                             @if ($errors->has('banner'))
                                 <span class="help-block">
                             <strong>{{ $errors->first('banner') }}</strong>
@@ -178,7 +181,36 @@
                 _token: window.Laravel.csrfToken
             },
             imageUploadURL: '/admin/upload/image?from=article_editor'
-        })
+        });
+        $('#banner').on('change', function () {
+            var data = new FormData();
+            data.append('image', $('#banner').prop('files')[0]);
+            data.append('_token', window.Laravel.csrfToken);
+            $.ajax({
+                url: '/admin/upload/image?from=article_banner',
+                type: 'POST',
+                data: data,
+                cache: false,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data, textStatus)
+                {
+                    $('#banner_img').show();
+                    $('#banner_img').prop('src', data['link']);
+                    $('#banner_path').val(data['link']);
+                },
+                error: function(jqXHR, textStatus)
+                {
+                    console.log('ERRORS: ' + textStatus);
+                },
+                statusCode: {
+                    422: function () {
+                        alert("请选择图片文件！");
+                    }
+                }
+            });
+        });
     });
 </script>
 @endpush
