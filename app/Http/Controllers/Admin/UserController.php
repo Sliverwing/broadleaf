@@ -110,10 +110,18 @@ class UserController extends Controller
 
     protected function doValidate(Request $request, $id=null)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|min:6|confirmed'
-        ]);
+        ];
+        if (is_null($id))
+        {
+            $rules['email'] = 'required|email|unique:users,email';
+        }
+        else
+        {
+            $rules['email'] = 'required|email|unique:users,email,' . $id;
+        }
+        $this->validate($request, $rules);
     }
 }
