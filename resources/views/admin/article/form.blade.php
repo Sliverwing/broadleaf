@@ -168,19 +168,31 @@
 @push('scripts')
 <script>
     $(function () {
-        $('textarea#content').froalaEditor({
-            language: 'zh_cn',
-            heightMin: 200,
-            toolbarButtons: ['bold', 'italic', 'underline', 'align', 'formatOL', 'formatUL',
-                'color', 'fontFamily', 'fontSize', 'quote', 'insertImage', 'insertLink', 'insertTable', 'undo', 'redo', 'fullscreen'],
-            pluginsEnabled: ['align', 'image', 'link', 'draggable', 'fontFamily', 'fontSize', 'table', 'fullscreen', 'lists'],
-            imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-            imageEditButtons: ['imageReplace', 'imageAlign', 'imageRemove'],
-            imageUploadParam: 'image',
-            imageUploadParams: {
-                _token: window.Laravel.csrfToken
-            },
-            imageUploadURL: '/admin/upload/image?from=article_editor'
+        $('textarea#content').summernote({
+            lang: 'zh_cn',
+            height: 300,
+            minHeight: null,
+            maxHeight: 200,
+            focus: true,
+            callbacks: {
+                onImageUpload: function(files) {
+                    data = new FormData();
+                    data.append('image', files[0]);
+                    data.append('_token', window.Laravel.csrfToken);
+                    $.ajax({
+                        data: data,
+                        type: "POST",
+                        url: "/admin/upload/image?from=article_editor",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: 'json',
+                        success: function(resp) {
+                            $('textarea#content').summernote("insertImage", resp.link);
+                        }
+                    });
+                }
+            }
         });
         $('#banner').on('change', function () {
             var data = new FormData();
