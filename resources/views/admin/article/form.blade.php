@@ -113,7 +113,7 @@
                         </div>
                         <div class="form-group{{ $errors->has('banner') ? ' has-error' : '' }}">
                             <label for="banner">文章标题图</label>
-                            @if(isset($item))
+                            @if(isset($item) && !is_null($item->banner))
                                 <img src="{{ $item->banner }}" class="img-responsive" id="banner_img" alt="预览图">
                             @else
                                 <img src="" class="img-responsive" id="banner_img" alt="预览图" style="display: none;">
