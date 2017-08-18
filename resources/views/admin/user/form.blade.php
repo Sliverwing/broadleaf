@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                     <label for="description">密码</label>
-                    <input type="text" name="password" class="form-control" id="password">
+                    <input type="password" name="password" class="form-control" id="password">
                     <p class="help-block">如需修改用户密码，请填写此项，原密码不显示。</p>
                     @if ($errors->has('password'))
                         <span class="help-block">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label for="level">确认密码</label>
-                    <input type="text" name="password_confirmation" class="form-control" id="password_confirmation">
+                    <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
                 </div>
                 @permission('user.role.edit')
                 <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
