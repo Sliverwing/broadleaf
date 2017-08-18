@@ -41,7 +41,7 @@ class RoleController extends Controller
     {
         $this->doValidate($request);
         $role = Role::create($request->except('permission'));
-        if (Auth::user()->hasPermission('role.permission.edit'))
+        if (Auth::user()->hasPermission('role.permission.edit') && is_array($request->input('permission')))
         {
             $role->syncPermissions($request->input('permission'));
         }
