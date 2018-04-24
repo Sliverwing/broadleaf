@@ -43,6 +43,8 @@
     <script src="https://cdn.bootcss.com/summernote/0.8.3/summernote.min.js"></script>
     <script src="https://cdn.bootcss.com/summernote/0.8.3/lang/summernote-zh-CN.min.js"></script>
     @stack('scripts')
-
+    <script>
+        jQuery(document).ready(function($){ $('.main-sidebar').height($(document).outerHeight()); });
+    </script>
 </body>
 </html>
