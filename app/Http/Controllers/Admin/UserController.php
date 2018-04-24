@@ -40,7 +40,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->doValidate($request);
-        User::create(array_merge($request->except('password_confirmed'), ['password' => bcrypt($request->password)]));
+        $item = User::create(array_merge($request->except('password_confirmed'), ['password' => bcrypt($request->password)]));
+        if (Auth::user()->hasPermission('user.role.edit'))
+        {
+            $item->syncRoles($request->input('role'));
+        }
         return parent::store($request);
     }
 
